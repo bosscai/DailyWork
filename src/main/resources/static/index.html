@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态添加 Input 元素</title>
+    <style>
+        #inputContainer {
+            margin-bottom: 10px;
+        }
+        input {
+            display: block;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+<div id="RequestContainer">
+    <p>需求</p>
+    <input type="text" placeholder="输入需求">
+</div>
+<button onclick="addRequest()">添加需求</button>
+
+<div id="TaskContainer">
+    <p>任务</p>
+    <input type="text" placeholder="输入任务"> <button>删除</button>
+</div>
+<button onclick="addTask()">添加任务</button>
+
+<div id="BugContainer">
+    <p>任务</p>
+    <input type="text" placeholder="输入缺陷">
+</div>
+<button onclick="addTask()">添加缺陷</button>
+
+
+<script>
+    function addRequest() {
+        // 获取 input 容器元素
+        const container = document.getElementById('RequestContainer');
+        // 创建一个新的 input 元素
+        const newInput = document.createElement('input');
+        newInput.type = 'text';
+        newInput.placeholder = '输入需求';
+        const removeButton = document.createElement('button');
+        removeButton.textContent = '删除';
+        removeButton.onclick = function () {
+            container.removeChild(newItem);
+            container.removeChild(removeButton);
+        };
+        // 将新创建的 input 元素添加到容器中
+        container.appendChild(newInput);
+        container.appendChild(removeButton);
+    }
+    function addTask() {
+        // 获取 input 容器元素
+        const container = document.getElementById('TaskContainer');
+        // 创建一个新的 input 元素
+        const newInput = document.createElement('input');
+        newInput.type = 'text';
+        newInput.placeholder = '输入任务';
+        // 将新创建的 input 元素添加到容器中
+        container.appendChild(newInput);
+    }
+    function addBug() {
+        // 获取 input 容器元素
+        const container = document.getElementById('BugContainer');
+        // 创建一个新的 input 元素
+        const newInput = document.createElement('input');
+        newInput.type = 'text';
+        newInput.placeholder = '输入缺陷';
+        // 将新创建的 input 元素添加到容器中
+        container.appendChild(newInput);
+    }
+</script>
+</body>
+</html>
