@@ -3,74 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>动态添加 Input 元素</title>
+    <title>Dynamic Form</title>
     <style>
-        #inputContainer {
+        .form-container {
+            margin: 20px;
+        }
+        .input-container {
+            display: flex;
             margin-bottom: 10px;
         }
-        input {
+        .input-container input:first-child {
+            width: 600px;
+            margin-right: 10px;
+        }
+        .radio-container {
+            display: flex;
+            margin-left: 10px;
+        }
+        .radio-container input[type="radio"] {
+            width: 15px;
+            height: 15px;
+            vertical-align: middle;
+        }
+        .radio-container label {
+            display: flex;
+            align-items: center;
+        }
+        .submit-button {
             display: block;
+            margin: 20px auto;
             width: 200px;
+            height: 40px;
+            font-size: 18px;
+        }
+        .input-container button {
+            margin-left: 20px;
+        }
+        .progress-input {
+            width: 100px;
+            margin-left: 10px;
         }
     </style>
 </head>
 <body>
-<div id="RequestContainer">
-    <p>需求</p>
-    <input type="text" placeholder="输入需求">
-</div>
-<button onclick="addRequest()">添加需求</button>
+<div class="form-container">
+    <h2>Dynamic Form</h2>
+    <form id="myForm">
+        <div>
+            <div id="requestFields">
+                <div class="input-container">
+                    <input type="text" name="input[]" placeholder="Enter value">
+                    <input type="text" class="progress-input" placeholder="进度(%)" oninput="validateProgressInput(this)">
+                    <button type="button" onclick="removeInput(this)">Remove</button>
+                </div>
+            </div>
+            <button type="button" onclick="addRequest()">增加需求</button>
+        </div>
+        <div>
+            <div id="taskFields">
+                <div class="input-container">
+                    <input type="text" name="input[]" placeholder="Enter value">
+                    <input type="text" class="progress-input" placeholder="进度(%)" oninput="validateProgressInput(this)">
+                    <button type="button" onclick="removeInput(this)">Remove</button>
+                </div>
+            </div>
+            <button type="button" onclick="addTask()">增加任务</button>
+        </div>
+        <div>
+            <div id="bugFields">
+                <div class="input-container">
+                    <input type="text" name="input[]" placeholder="Enter value">
+                    <div class="radio-container">
+                        <label><input type="radio" name="action[]" value="修复" style="margin-right: 5px;">修复</label>
+                        <label><input type="radio" name="action[]" value="流转">流转</label>
+                    </div>
+                    <button type="button" onclick="removeInput(this)">Remove</button>
+                </div>
+            </div>
+            <button type="button" onclick="addBug()">增加缺陷</button>
+        </div>
 
-<div id="TaskContainer">
-    <p>任务</p>
-    <input type="text" placeholder="输入任务"> <button>删除</button>
+    </form>
+    <button type="submit" form="myForm" class="submit-button">Submit</button>
 </div>
-<button onclick="addTask()">添加任务</button>
-
-<div id="BugContainer">
-    <p>任务</p>
-    <input type="text" placeholder="输入缺陷">
-</div>
-<button onclick="addTask()">添加缺陷</button>
-
 
 <script>
     function addRequest() {
-        // 获取 input 容器元素
-        const container = document.getElementById('RequestContainer');
-        // 创建一个新的 input 元素
-        const newInput = document.createElement('input');
-        newInput.type = 'text';
-        newInput.placeholder = '输入需求';
-        const removeButton = document.createElement('button');
-        removeButton.textContent = '删除';
-        removeButton.onclick = function () {
-            container.removeChild(newItem);
-            container.removeChild(removeButton);
+        var inputContainer = document.createElement('div');
+        inputContainer.className = 'input-container';
+
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.name = 'input[]';
+        input.placeholder = 'Enter value';
+
+        var radioContainer = document.createElement('div');
+        radioContainer.className = 'radio-container';
+
+        var progressInput = document.createElement('input');
+        progressInput.type = 'text';
+        progressInput.className = 'progress-input';
+        progressInput.placeholder = '进度(%)';
+        progressInput.oninput = function() {
+            validateProgressInput(this);
         };
-        // 将新创建的 input 元素添加到容器中
-        container.appendChild(newInput);
-        container.appendChild(removeButton);
+
+        var removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.textContent = 'Remove';
+        removeButton.onclick = function() {
+            removeInput(this);
+        };
+
+        inputContainer.appendChild(input);
+        inputContainer.appendChild(radioContainer);
+        inputContainer.appendChild(progressInput);
+        inputContainer.appendChild(removeButton);
+
+        document.getElementById('requestFields').appendChild(inputContainer);
     }
+
     function addTask() {
-        // 获取 input 容器元素
-        const container = document.getElementById('TaskContainer');
-        // 创建一个新的 input 元素
-        const newInput = document.createElement('input');
-        newInput.type = 'text';
-        newInput.placeholder = '输入任务';
-        // 将新创建的 input 元素添加到容器中
-        container.appendChild(newInput);
+        var inputContainer = document.createElement('div');
+        inputContainer.className = 'input-container';
+
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.name = 'input[]';
+        input.placeholder = 'Enter value';
+
+        var radioContainer = document.createElement('div');
+        radioContainer.className = 'radio-container';
+
+        var progressInput = document.createElement('input');
+        progressInput.type = 'text';
+        progressInput.className = 'progress-input';
+        progressInput.placeholder = '进度(%)';
+        progressInput.oninput = function() {
+            validateProgressInput(this);
+        };
+
+        var removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.textContent = 'Remove';
+        removeButton.onclick = function() {
+            removeInput(this);
+        };
+
+        inputContainer.appendChild(input);
+        inputContainer.appendChild(radioContainer);
+        inputContainer.appendChild(progressInput);
+        inputContainer.appendChild(removeButton);
+
+        document.getElementById('taskFields').appendChild(inputContainer);
     }
+
     function addBug() {
-        // 获取 input 容器元素
-        const container = document.getElementById('BugContainer');
-        // 创建一个新的 input 元素
-        const newInput = document.createElement('input');
-        newInput.type = 'text';
-        newInput.placeholder = '输入缺陷';
-        // 将新创建的 input 元素添加到容器中
-        container.appendChild(newInput);
+        var inputContainer = document.createElement('div');
+        inputContainer.className = 'input-container';
+
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.name = 'input[]';
+        input.placeholder = 'Enter value';
+
+        var radioContainer = document.createElement('div');
+        radioContainer.className = 'radio-container';
+
+        var radio1 = document.createElement('label');
+        radio1.innerHTML = '<input type="radio" name="action[]" value="修复" style="margin-right: 5px;">修复';
+        var radio2 = document.createElement('label');
+        radio2.innerHTML = '<input type="radio" name="action[]" value="流转">流转';
+
+        var removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.textContent = 'Remove';
+        removeButton.onclick = function() {
+            removeInput(this);
+        };
+
+        inputContainer.appendChild(input);
+        radioContainer.appendChild(radio1);
+        radioContainer.appendChild(radio2);
+        inputContainer.appendChild(radioContainer);
+        inputContainer.appendChild(removeButton);
+
+        document.getElementById('bugFields').appendChild(inputContainer);
+    }
+
+
+    function removeInput(button) {
+        var inputContainer = button.parentNode;
+        inputContainer.parentNode.removeChild(inputContainer);
+    }
+
+    function validateProgressInput(input) {
+        var value = input.value;
+        // 只允许输入数字和空字符串
+        value = value.replace(/[^0-9]/g, '');
+        if (value === '') {
+            input.value = '';
+        } else {
+            value = parseInt(value);
+            if (value < 0) {
+                value = 0;
+            } else if (value > 100) {
+                value = 100;
+            }
+            input.value = value.toString();
+        }
     }
 </script>
 </body>
