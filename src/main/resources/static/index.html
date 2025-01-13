@@ -48,12 +48,12 @@
 <body>
 <div class="form-container">
     <h2>Dynamic Form</h2>
-    <form id="myForm">
+    <form id="myForm" action="/submit" method="post">
         <div>
             <div id="requestFields">
                 <div class="input-container">
-                    <input type="text" name="input[]" placeholder="Enter value">
-                    <input type="text" class="progress-input" placeholder="进度(%)" oninput="validateProgressInput(this)">
+                    <input type="text" name="requestInput[]" placeholder="Enter value">
+                    <input type="text" name="requestProgress[]" class="progress-input" placeholder="进度(%)" oninput="validateProgressInput(this)">
                     <button type="button" onclick="removeInput(this)">Remove</button>
                 </div>
             </div>
@@ -62,8 +62,8 @@
         <div>
             <div id="taskFields">
                 <div class="input-container">
-                    <input type="text" name="input[]" placeholder="Enter value">
-                    <input type="text" class="progress-input" placeholder="进度(%)" oninput="validateProgressInput(this)">
+                    <input type="text" name="taskInput[]" placeholder="Enter value">
+                    <input type="text" name="taskProgress[]" class="progress-input" placeholder="进度(%)" oninput="validateProgressInput(this)">
                     <button type="button" onclick="removeInput(this)">Remove</button>
                 </div>
             </div>
@@ -72,10 +72,10 @@
         <div>
             <div id="bugFields">
                 <div class="input-container">
-                    <input type="text" name="input[]" placeholder="Enter value">
+                    <input type="text" name="bugInput[]" placeholder="Enter value">
                     <div class="radio-container">
-                        <label><input type="radio" name="action[]" value="修复" style="margin-right: 5px;">修复</label>
-                        <label><input type="radio" name="action[]" value="流转">流转</label>
+                        <label><input type="radio" name="actions[]" value="修复" style="margin-right: 5px;">修复</label>
+                        <label><input type="radio" name="actions[]" value="流转">流转</label>
                     </div>
                     <button type="button" onclick="removeInput(this)">Remove</button>
                 </div>
@@ -94,14 +94,12 @@
 
         var input = document.createElement('input');
         input.type = 'text';
-        input.name = 'input[]';
+        input.name = 'requestInput[]';
         input.placeholder = 'Enter value';
-
-        var radioContainer = document.createElement('div');
-        radioContainer.className = 'radio-container';
 
         var progressInput = document.createElement('input');
         progressInput.type = 'text';
+        progressInput.name = 'requestProgress[]'
         progressInput.className = 'progress-input';
         progressInput.placeholder = '进度(%)';
         progressInput.oninput = function() {
@@ -116,7 +114,6 @@
         };
 
         inputContainer.appendChild(input);
-        inputContainer.appendChild(radioContainer);
         inputContainer.appendChild(progressInput);
         inputContainer.appendChild(removeButton);
 
@@ -129,15 +126,13 @@
 
         var input = document.createElement('input');
         input.type = 'text';
-        input.name = 'input[]';
+        input.name = 'taskInput[]';
         input.placeholder = 'Enter value';
-
-        var radioContainer = document.createElement('div');
-        radioContainer.className = 'radio-container';
 
         var progressInput = document.createElement('input');
         progressInput.type = 'text';
         progressInput.className = 'progress-input';
+        progressInput.name = 'taskProgress[]'
         progressInput.placeholder = '进度(%)';
         progressInput.oninput = function() {
             validateProgressInput(this);
@@ -151,7 +146,6 @@
         };
 
         inputContainer.appendChild(input);
-        inputContainer.appendChild(radioContainer);
         inputContainer.appendChild(progressInput);
         inputContainer.appendChild(removeButton);
 
@@ -164,16 +158,16 @@
 
         var input = document.createElement('input');
         input.type = 'text';
-        input.name = 'input[]';
+        input.name = 'bugInput[]';
         input.placeholder = 'Enter value';
 
         var radioContainer = document.createElement('div');
         radioContainer.className = 'radio-container';
 
         var radio1 = document.createElement('label');
-        radio1.innerHTML = '<input type="radio" name="action[]" value="修复" style="margin-right: 5px;">修复';
+        radio1.innerHTML = '<input type="radio" name="actions[]" value="修复" style="margin-right: 5px;">修复';
         var radio2 = document.createElement('label');
-        radio2.innerHTML = '<input type="radio" name="action[]" value="流转">流转';
+        radio2.innerHTML = '<input type="radio" name="actions[]" value="流转">流转';
 
         var removeButton = document.createElement('button');
         removeButton.type = 'button';
